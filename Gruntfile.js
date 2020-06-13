@@ -1,6 +1,6 @@
 'use strict';
 
-const FONTAWESOME_VERSION = '5.5.0';
+const FONTAWESOME_VERSION = '5.13.0';
 const jsBanner = `/*!
  * Font Awesome Icon Picker
  * https://farbelous.github.io/fontawesome-iconpicker/
@@ -18,9 +18,10 @@ module.exports = function(grunt) {
         download: {
             somefile: {
                 src: [
-                    'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/' +
-                    FONTAWESOME_VERSION +
-                    '/advanced-options/metadata/icons.yml'
+                    // 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/' +
+                    // FONTAWESOME_VERSION +
+                    // '/advanced-options/metadata/icons.yml'
+                    'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/metadata/icons.yml'
                 ],
                 dest: tempIconsFile
             },
@@ -40,27 +41,34 @@ module.exports = function(grunt) {
                             let icon = 'fa-' + key;
                             ele.styles.forEach(function(style) {
                                 style = style.toLowerCase();
-                                if (style.startsWith('brand')) {
+                                if (style.startsWith('solid')) {
                                     targetJSON.icons.push({
-                                        title: 'fab ' + icon,
-                                        searchTerms: ele.search.terms
-                                    });
-                                } else if (style.startsWith('solid')) {
-                                    targetJSON.icons.push({
-                                        title: 'fas ' + icon,
-                                        searchTerms: ele.search.terms
-                                    });
-                                } else if (style.startsWith('regular')) {
-                                    targetJSON.icons.push({
-                                        title: 'far ' + icon,
-                                        searchTerms: ele.search.terms
-                                    });
-                                } else if (style.startsWith('light')) {
-                                    targetJSON.icons.push({
-                                        title: 'fal ' + icon,
+                                        // title: 'fas ' + icon,
+                                        title: '' + icon,
                                         searchTerms: ele.search.terms
                                     });
                                 }
+                                // if (style.startsWith('brand')) {
+                                //     targetJSON.icons.push({
+                                //         title: 'fab ' + icon,
+                                //         searchTerms: ele.search.terms
+                                //     });
+                                // } else if (style.startsWith('solid')) {
+                                //     targetJSON.icons.push({
+                                //         title: 'fas ' + icon,
+                                //         searchTerms: ele.search.terms
+                                //     });
+                                // } else if (style.startsWith('regular')) {
+                                //     targetJSON.icons.push({
+                                //         title: 'far ' + icon,
+                                //         searchTerms: ele.search.terms
+                                //     });
+                                // } else if (style.startsWith('light')) {
+                                //     targetJSON.icons.push({
+                                //         title: 'fal ' + icon,
+                                //         searchTerms: ele.search.terms
+                                //     });
+                                // }
                             });
                         });
                         grunt.file.write(dest, JSON.stringify(targetJSON));
